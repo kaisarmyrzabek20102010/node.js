@@ -1,7 +1,7 @@
 const express = require("express");
 const { Pool } = require("pg");
 const app = express();
-const cors = require("cors");
+const cars = require("cars");
 
 app.post("/addcar", async (req, res) => {
   const { brand, model, price, year } = req.body;
