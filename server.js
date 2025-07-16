@@ -12,16 +12,6 @@ app.use(cors());
 app.use(helmet());
 
 const SECRET_KEY = "secret123";
-const PORT = 3000;
-
-// const loginLimiter = rateLimit({
-//   windowMs: 720000,
-//   max: 3,
-//   message: {
-//     status: 429,
-//     error: 'Көп сұраныс жасадыңыз. Сізге 2 сағ бан берілді.',
-//   }
-// });
 
 function authMiddleware(req, res, next) {
   const authHeader = req.headers.authorization;
@@ -95,6 +85,6 @@ app.get("/profile", authMiddleware, async (req, res , next) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Сервер http://localhost:${PORT} портында жұмыс істеуде`);
+app.listen(3000, () => {
+  console.log(`Сервер http://localhost:3000 портында жұмыс істеуде`);
 });
