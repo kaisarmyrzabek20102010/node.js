@@ -53,7 +53,7 @@ app.post("/register", async (req, res) => {
   }
 });
 
-app.post("/login", loginLimiter, async (req, res) => {
+app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   try {
@@ -80,18 +80,18 @@ app.post("/login", loginLimiter, async (req, res) => {
     res.json({ token });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ error: " login қате болды" });
+    res.status(500).json({ error: "login қате болды" });
   }
 });
 
-app.get("/profile", authMiddleware, async (req, res) => {
+app.get("/profile", authMiddleware, async (req, res , next) => {
   try {
     const code = jwt.verify(token);
     req.user = code;
     next();
     res.json({ message: `welcome, ${req.user.username}` });
   } catch (error) {
-
+    res.status(500).json({ error: "қате болды" });
   }
 });
 
