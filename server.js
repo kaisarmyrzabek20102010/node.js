@@ -74,14 +74,19 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/profile", authMiddleware, async (req, res , next) => {
+app.get("/profile", authMiddleware, async (req, res, next) => {
+  const authHeader = req.headers.authorization;
+
+  if (!token) return res.status(401).json({ error: "unaythirized" });
+
+  const token = authHeader.split(" ")[1];
   try {
     const code = jwt.verify(token);
     req.user = code;
     next();
     res.json({ message: `welcome, ${req.user.username}` });
   } catch (error) {
-    res.status(500).json({ error: "қате болды" });
+    res.status(403).json({ error: "forbidden" });
   }
 });
 
